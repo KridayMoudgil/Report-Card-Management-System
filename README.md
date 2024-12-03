@@ -1,0 +1,2 @@
+This project is a Report Card Building System. It requires the student's name, his/her class and section, roll number and marks scored in the respective subjects. A CSV file and a PDF file is created with 
+a predefined format in which the data automatically gets appended and saved. This can reduce a lot of teachers and professors' time on creating Excel files and Report Cards making it highly productive. 
