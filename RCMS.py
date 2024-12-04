@@ -11,7 +11,7 @@ root = customtkinter.CTk()
 root.title("Report Card Builder")
 root.geometry("600x700")
 
-file_path = "C:/Users/moudg/OneDrive/Desktop/rcms.csv"
+file_path = "C:/Users/bbps/Desktop/rcms.csv"
 
 customtkinter.set_default_color_theme("green")
 customtkinter.set_appearance_mode("Dark")
@@ -19,8 +19,8 @@ customtkinter.set_appearance_mode("Dark")
 #FUNCTION 1
 def generate_pdf(record, pdf_path):
     c = canvas.Canvas(pdf_path, pagesize=letter)
-    image_path = "C:/Users/moudg/OneDrive/Desktop/logo.png"  
-    image_width = 100  
+    image_path = "C:/Users/bbps/Desktop/logo.png"  
+      image_width = 100  
     image_height = 100  
     image_x = 250  
     image_y = 700
@@ -28,31 +28,42 @@ def generate_pdf(record, pdf_path):
 
     
     c.setFont("Helvetica-Bold", 18)
-    c.drawString(250, 700, "Annual Report Card")
+    c.drawString(240, 700, "Annual Report Card")
     c.setFont("Helvetica", 12)
-    c.drawString(100, 660, f"Name:                   {record['Name']}")
-    c.drawString(100, 645, f"Class:                    {record['Class']}")
-    c.drawString(100, 630, f"Roll Number:           {record['Roll Number']}")
+    c.drawString(100, 660, f"Name:                                                                  {record['Name']}")
+    c.drawString(100, 658, "_______________________________________________")
+    c.drawString(100, 645, f"Class:                                                                  {record['Class']}")
+    c.drawString(100, 643, "_______________________________________________")
+    c.drawString(100, 630, f"Roll Number:                                                       {record['Roll Number']}")
+    c.drawString(100, 628, "_______________________________________________")
 
     
-    c.drawString(200, 570, "Subject                                       Marks")
-    c.drawString(200, 525, f"Maths                                         {record['Maths']}")
-    c.drawString(200, 523,"_____________________________")
-    c.drawString(200, 510, f"Science                                      {record['Science']}")
-    c.drawString(200, 508,"_____________________________")
-    c.drawString(200, 495, f"Social Science                           {record['Social Science']}")
-    c.drawString(200, 493,"_____________________________")
-    c.drawString(200, 480, f"A.I.                                             {record['A.I.']}")
-    c.drawString(200, 478,"_____________________________")
-    c.drawString(200, 465, f"Hindi                                          {record['Hindi']}")
-    c.drawString(200, 463,"_____________________________")
-    c.drawString(200, 450, f"English                                      {record['English']}")
-    c.drawString(200, 448,"_____________________________")
-    c.drawString(200, 435, f"Punjabi                                      {record['Punjabi']}")
+    c.drawString(100, 570, "Subject                                                                           Marks")
+    c.drawString(100, 538,"________________________________________________")
+    c.drawString(100, 525, f"Maths                                                                             {record['Maths']}")
+    c.drawString(100, 523,"________________________________________________")
+    c.drawString(100, 510, f"Science                                                                          {record['Science']}")
+    c.drawString(100, 508,"________________________________________________")
+    c.drawString(100, 495, f"Social Science                                                               {record['Social Science']}")
+    c.drawString(100, 493,"________________________________________________")
+    c.drawString(100, 480, f"A.I.                                                                                 {record['A.I.']}")
+    c.drawString(100, 478,"________________________________________________")
+    c.drawString(100, 465, f"Hindi                                                                              {record['Hindi']}")
+    c.drawString(100, 463,"________________________________________________")
+    c.drawString(100, 450, f"English                                                                          {record['English']}")
+    c.drawString(100, 448,"________________________________________________")
+    c.drawString(100, 435, f"Punjabi                                                                          {record['Punjabi']}")
+    c.drawString(100, 431,"________________________________________________")
 
 
-    c.drawString(200, 370, f"Academic Percentage:                   {record['Academic Percentage']:.2f}%")
-    c.drawString(200, 400, f"Attendance Percentage:                 {record['Attendance Percentage']:.2f}%")
+    c.drawString(100, 350, f"Academic Percentage:                   {record['Academic Percentage']:.2f}%")
+    c.drawString(100, 320, f"Attendance Percentage:                 {record['Attendance Percentage']:.2f}%")
+    c.drawString(90, 220, "_______________")
+    c.drawString(100, 180, "Class Incharge")
+    c.drawString(290, 220, "_______________")
+    c.drawString(300, 180, "Head Mistress")
+    c.drawString(490, 220, "_____________")
+    c.drawString(500, 180, "Principal")
     c.save()
 
 
@@ -71,7 +82,8 @@ def fetch_details():
         max_marks = entry_max_marks.get()
         max_days = 230
 
-        if not name.isalpha():
+        name_1 = name.strip()
+        if not name_1.isalpha():
             messagebox.showerror("Error", "Name must only contain alphabets.")
             return
         if int(max_marks) > 500:
@@ -92,7 +104,6 @@ def fetch_details():
             "Punjabi": marks[6], "Academic Percentage": percentage, "Attendance Percentage": attendance_percentage
         }
 
-        # Ensure headers on first write
         if not os.path.exists(file_path):
             df = pd.DataFrame(columns=[
                 "Name", "Class", "Roll Number", "Maths", "Science", 
@@ -101,14 +112,12 @@ def fetch_details():
             ])
             df.to_csv(file_path, index=False)
 
-        # Append data
         df = pd.DataFrame([record])
         df.to_csv(file_path, mode='a', index=False, header=False)
 
         messagebox.showinfo("Success", "Details added successfully!")
 
-        # Generate PDF
-        pdf_filename = f"C:/Users/moudg/OneDrive/Desktop/{name}_report_card.pdf"
+        pdf_filename = f"C:/Users/bbps/Desktop/{name}_report_card.pdf"
         generate_pdf(record, pdf_filename)
 
         messagebox.showinfo("Success", f"Report card generated successfully: {pdf_filename}")
@@ -174,6 +183,10 @@ entry_days.pack(pady=5)
 #BUTTON
 btn = customtkinter.CTkButton(frame, text="Submit", command=fetch_details)
 btn.pack(pady=20)
+
+
+
+
 
 
 
